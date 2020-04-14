@@ -1,7 +1,7 @@
 node_modules
+__tests__/database.sqlite
+__tests__/coverage/**
 
 # envs
 .env
 .env.test
-__tests__/database.sqlite
-__tests__/coverage/**

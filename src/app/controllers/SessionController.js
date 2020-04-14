@@ -13,7 +13,7 @@ module.exports = {
     if (!(await user.checkPassword(password))) {
       return res.status(401).json({ message: 'Wrong password' });
     }
-    await user.generateToken();
-    return res.status(200).json(user);
+
+    return res.status(200).json({ user, token: user.generateToken() });
   },
 };
