@@ -7,7 +7,7 @@ module.exports = {
   // automock: false,
 
   // Stop running tests after `n` failures
-  bail: 1,
+  // bail: 1,
 
   // Respect "browser" field in package.json when resolving modules
   // browser: false,
@@ -144,6 +144,8 @@ module.exports = {
   // The glob patterns Jest uses to detect test files
   testMatch: [
     '**/__tests__/**/*.[jt]s?(x)',
+    '!**/__tests__/coverage/**',
+    '!**/__tests__/utils/**',
     //   "**/?(*.)+(spec|test).[tj]s?(x)"
   ],
 
