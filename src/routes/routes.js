@@ -1,12 +1,8 @@
 const { Router } = require('express');
-const multer = require('multer');
 const { UserController, SessionController } = require('../app/controllers');
-const { auth } = require('../app/middlewares');
-
-const imgUpload = multer({ dest: 'uploads/images/avatars/' });
+const { auth, imgUpload } = require('../app/middlewares');
 
 const routes = Router();
-
 routes.get('/users', UserController.index);
 routes.post('/users', UserController.store);
 

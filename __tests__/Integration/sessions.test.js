@@ -9,8 +9,22 @@ describe('Auth', () => {
     await truncate();
   });
 
-  it('not authenticate user with invalid credentials', async () => {
+  it('not authenticate user with invalid email', async () => {
     const user = await factory.create('User', {
+      email: 'nathan@gmail.com',
+      password: '123456',
+    });
+
+    const response = await request(app)
+      .post('/sessions')
+      .send({ email: 'miles@gmail.com', password: user.password });
+
+    expect(response.status).toBe(404);
+  });
+
+  it('not authenticate user with invalid password', async () => {
+    const user = await factory.create('User', {
+      email: 'drake@gmail.com',
       password: '123456',
     });
 
@@ -18,7 +32,7 @@ describe('Auth', () => {
       .post('/sessions')
       .send({ email: user.email, password: '123123' });
 
-    expect(response.status).toBe(401);
+    expect(response.status).toBe(404);
   });
 
   it('authenticate user with valid credentials', async () => {
@@ -41,7 +55,13 @@ describe('Auth', () => {
     expect(response.body).toHaveProperty('token');
   });
 
-  it('not access private routes if not authenticated', async () => {
+  it('not access private routes without token', async () => {
+    const response = await request(app).get('/feed');
+
+    expect(response.status).toBe(401);
+  });
+
+  it('not access private routes if token is invalid', async () => {
     const response = await request(app)
       .get('/feed')
       .set('Authorization', 'Bearer UP5g2bGOj5k2G3oEB2hP');

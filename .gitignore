@@ -1,7 +1,10 @@
 node_modules
+
 .vscode
 __tests__/database.sqlite
-__tests__/coverage/**
+__tests__/coverage
+
+uploads/images/avatars/**
 
 # envs
 .env

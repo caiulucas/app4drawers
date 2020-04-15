@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable no-param-reassign */
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
@@ -8,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       bio: DataTypes.STRING,
-      avatar: DataTypes.STRING,
+      avatar: DataTypes.VIRTUAL,
+      avatar_url: DataTypes.STRING,
       email: DataTypes.STRING,
       token: DataTypes.VIRTUAL,
       password: DataTypes.VIRTUAL,
@@ -19,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
         beforeSave: async (user) => {
           if (user.password) {
             user.password_hash = await bcrypt.hash(user.password, 8);
+          }
+        },
+        beforeUpdate: (user) => {
+          if (user.avatar) {
+            user.avatar_url = `${process.env.APP_URL}/images/avatars/${user.avatar}`;
           }
         },
       },

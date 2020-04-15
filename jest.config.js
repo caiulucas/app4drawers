@@ -146,6 +146,7 @@ module.exports = {
     '**/__tests__/**/*.[jt]s?(x)',
     '!**/__tests__/coverage/**',
     '!**/__tests__/utils/**',
+    '!**/__tests__/images/**',
     //   "**/?(*.)+(spec|test).[tj]s?(x)"
   ],
 

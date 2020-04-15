@@ -14,7 +14,7 @@ module.exports = {
       },
 
       bio: Sequelize.STRING,
-      avatar: Sequelize.STRING,
+      avatar_url: Sequelize.STRING,
 
       email: {
         type: Sequelize.STRING,
