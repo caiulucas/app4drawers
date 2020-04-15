@@ -1,3 +1,4 @@
+const faker = require('faker');
 const bcrypt = require('bcryptjs');
 const request = require('supertest');
 const app = require('../../src/app');
@@ -12,8 +13,8 @@ describe('Users', () => {
 
   it('creates user', async () => {
     const dataPayload = {
-      name: 'Caio Lucas',
-      email: 'lienscarlet@gmail.com',
+      name: 'Drake',
+      email: 'drake@gmail.com',
       password: '123456',
     };
 
@@ -33,23 +34,19 @@ describe('Users', () => {
 
   it('update user when authenticated', async () => {
     const user = await factory.create('User', {
-      name: 'Caio',
+      name: 'Josh',
       password: 'pineapple',
     });
 
-    const updateDataPayload = {
-      name: 'Lien Scarlet',
-      password: 'potato',
-      password_confirmation: 'potato',
-    };
-
-    const response = request(app)
-      .put(`/users/${user.id}`)
-      .set('Authentication', `Bearer ${user.generateToken()}`)
-      .send(updateDataPayload);
+    const response = await request(app)
+      .put(`/users`)
+      .set('Authorization', `Bearer ${user.generateToken()}`)
+      .attach('avatar', '__tests__/img/avatar.jpg')
+      .field('name', 'Drake')
+      .field('bio', 'Hi, I am Drake and there are my drawings')
+      .field('password', 'potato');
 
     expect(response.status).toBe(200);
-    expect(response.body.name).toBe(updateDataPayload.name);
   });
 
   it('creates hash password', async () => {
