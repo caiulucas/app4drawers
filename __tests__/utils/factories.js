@@ -10,7 +10,7 @@ factory.define('User', User, {
 
 factory.define('Drawing', Drawing, {
   drawing: 'drawing.jpg',
-  description: faker.fake(),
+  description: faker.random.words(6),
 });
 
 module.exports = factory;

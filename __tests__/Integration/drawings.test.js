@@ -9,8 +9,19 @@ describe('Drawings', () => {
   beforeEach(async () => {
     await truncate();
   });
-  afterEach(async () => {
-    await truncate();
+
+  it('shows drawing from a user', async () => {
+    const user = await factory.create('User');
+    const drawing = await factory.attrs('Drawing');
+
+    const newDrawing = await user.createDrawing(drawing);
+
+    const response = await request(app)
+      .get(`/drawings/show/${newDrawing.id}`)
+      .set('Authorization', `Bearer ${user.generateToken()}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.id).toBe(newDrawing.id);
   });
 
   it('index drawings from a user', async () => {
@@ -37,6 +48,20 @@ describe('Drawings', () => {
       .field('description', 'Kono dio da!!!');
 
     expect(response.status).toBe(201);
+  });
+
+  it('updates drawing description', async () => {
+    const user = await factory.create('User');
+    const drawing = await factory.attrs('Drawing', { description: 'Desc' });
+
+    const { dataValues } = await user.createDrawing(drawing);
+
+    const response = await request(app)
+      .put(`/drawings/${dataValues.id}`)
+      .set('Authorization', `Bearer ${user.generateToken()}`)
+      .send({ description: 'new desc' });
+
+    expect(response.status).toBe(200);
   });
 
   it('deletes drawing', async () => {

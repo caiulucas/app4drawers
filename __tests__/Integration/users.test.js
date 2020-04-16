@@ -10,9 +10,6 @@ describe('Users', () => {
   beforeEach(async () => {
     await truncate();
   });
-  afterEach(async () => {
-    await truncate();
-  });
 
   it('returns users index', async () => {
     await factory.create('User');

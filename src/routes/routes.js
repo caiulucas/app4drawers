@@ -15,12 +15,14 @@ routes.post('/sessions', SessionController.store);
 
 routes.use(auth);
 
+routes.get('/drawings/show/:drawing_id', DrawingController.show);
 routes.get('/drawings/:user_id', DrawingController.index);
 routes.post(
   '/drawings',
   drawingUpload.single('drawing'),
   DrawingController.store
 );
+routes.put('/drawings/:drawing_id', DrawingController.update);
 routes.delete('/drawings/:drawing_id', DrawingController.destroy);
 
 routes.get('/feed', (req, res) => {
