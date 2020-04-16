@@ -5,6 +5,9 @@ __tests__/database.sqlite
 __tests__/coverage
 
 uploads/images/avatars/**
+uploads/images/drawings/**
+
+!uploads/images/drawings/drawing.jpg
 
 # envs
 .env

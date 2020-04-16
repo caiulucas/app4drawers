@@ -4,7 +4,6 @@
 
 module.exports = {
   // All imported modules in your tests should be mocked automatically
-  // automock: false,
 
   // Stop running tests after `n` failures
   // bail: 1,
@@ -19,7 +18,7 @@ module.exports = {
   clearMocks: true,
 
   // Indicates whether the coverage information should be collected while executing the test
-  collectCoverage: true,
+  // collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
   // collectCoverageFrom: undefined,
@@ -50,7 +49,7 @@ module.exports = {
   // errorOnDeprecated: false,
 
   // Force coverage collection from ignored files using an array of glob patterns
-  // forceCoverageMatch: [],
+  forceCoverageMatch: ['**/models/index.js'],
 
   // A path to a module which exports an async function that is triggered once before all test suites
   // globalSetup: undefined,
@@ -62,7 +61,7 @@ module.exports = {
   // globals: {},
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
-  // maxWorkers: "50%",
+  maxWorkers: '15%',
 
   // An array of directory names to be searched recursively up from the requiring module's location
   // moduleDirectories: [

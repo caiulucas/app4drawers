@@ -8,6 +8,9 @@ describe('Auth', () => {
   beforeEach(async () => {
     await truncate();
   });
+  afterEach(async () => {
+    await truncate();
+  });
 
   it('not authenticate user with invalid email', async () => {
     const user = await factory.create('User', {

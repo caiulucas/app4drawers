@@ -10,17 +10,17 @@ describe('Users', () => {
   beforeEach(async () => {
     await truncate();
   });
+  afterEach(async () => {
+    await truncate();
+  });
 
-  it('creates user', async () => {
-    const dataPayload = {
-      name: 'Josh',
-      email: 'josh@gmail.com',
-      password: '123456',
-    };
+  it('returns users index', async () => {
+    await factory.create('User');
 
-    const response = await request(app).post('/users').send(dataPayload);
+    const response = await request(app).get('/users');
 
-    expect(response.status).toBe(201);
+    expect(response.status).toBe(200);
+    expect(response.body[0]).toHaveProperty('email');
   });
 
   it('not creates user if email already exists', async () => {
@@ -37,13 +37,16 @@ describe('Users', () => {
     expect(response.status).toBe(404);
   });
 
-  it('returns users index', async () => {
-    await factory.create('User');
+  it('creates user', async () => {
+    const dataPayload = {
+      name: 'Josh',
+      email: 'josh@gmail.com',
+      password: '123456',
+    };
 
-    const response = await request(app).get('/users');
+    const response = await request(app).post('/users').send(dataPayload);
 
-    expect(response.status).toBe(200);
-    expect(response.body[0]).toHaveProperty('email');
+    expect(response.status).toBe(201);
   });
 
   it('update user when authenticated', async () => {

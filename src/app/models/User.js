@@ -12,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       avatar: DataTypes.VIRTUAL,
       avatar_url: DataTypes.STRING,
       email: DataTypes.STRING,
-      token: DataTypes.VIRTUAL,
       password: DataTypes.VIRTUAL,
       password_hash: DataTypes.STRING,
     },
@@ -31,6 +30,11 @@ module.exports = (sequelize, DataTypes) => {
       },
     }
   );
+
+  User.hasMany(sequelize.models.Drawing, {
+    foreignKey: 'user_id',
+    as: 'drawings',
+  });
 
   User.prototype.checkPassword = function (password) {
     return bcrypt.compare(password, this.password_hash);
